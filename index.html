@@ -335,9 +335,9 @@ button:hover {
 <section id="home" style="display:flex; flex-direction:column; justify-content:center; align-items:center;">
   <h2>Welcome to Soccer Empire</h2>
   <div style="display:flex; flex-wrap:wrap; justify-content:center;">
-    <img src="https://images.unsplash.com/photo-1601144485461-5b8e6b8f2e4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" width="300" style="margin:10px; border-radius:10px;">
-    <img src="https://images.unsplash.com/photo-1601144485461-5b8e6b8f2e4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" width="300" style="margin:10px; border-radius:10px;">
-    <img src="https://images.unsplash.com/photo-1601144485461-5b8e6b8f2e4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" width="300" style="margin:10px; border-radius:10px;">
+    <img src="https://images.unsplash.com/photo-1601144485461-5b8e6b8f2e4d?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80" width="300" style="margin:10px; border-radius:10px;">
+    <img src="https://images.unsplash.com/photo-1601144485461-5b8e6b8f2e4d?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80" width="300" style="margin:10px; border-radius:10px;">
+    <img src="https://images.unsplash.com/photo-1601144485461-5b8e6b8f2e4d?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80" width="300" style="margin:10px; border-radius:10px;">
   </div>
 </section>
 
@@ -396,7 +396,7 @@ button:hover {
   // Cart array
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  // Products list (with your store's kits)
+  // Products list (with your store's kits + balls added)
   const products = [
     { name: "Copa Mundial FG", image: "https://www.futbolemotion.com/imagesarticulos/88055/750/bota-adidas-copa-mundial-0.jpg", category: "Boots", price: 120 },
     { name: "F50 FG Radiant Blaze", image: "https://thumblr.uniid.it/product/396994/83cfad07bdcd.jpg?width=3840&format=webp&q=75", category: "Boots", price: 150 },
@@ -407,7 +407,7 @@ button:hover {
     { name: "Phantom GX 2 LV8", image: "https://www.ultrafootball.com/cdn/shop/files/AURORA_HV4890-100_PHCFH001-2000_1200x630_crop_center.jpg?v=1747883182", category: "Boots", price: 165 },
     { name: "Tiempo Legend 10", image: "https://thumblr.uniid.it/product/384243/03456a5e37de.jpg?width=3840&format=webp&q=75", category: "Boots", price: 155 },
 
-    // Your kits
+    // Kits
     { name: "FC Barcelona x Travis Scott Limited Edition Away Kit", image: "https://footballprestige.com/cdn/shop/files/fc-barcelona-x-travis-scott-limited-edition-away-kit-footballprestigecom-2025-premium-quality-156413.jpg?v=1747584406&width=1024", category: "Kits", price: 90 },
     { name: "PSG Paris Noir Premium Kit", image: "https://footballprestige.com/cdn/shop/files/psg-paris-noir-premium-kit-footballprestigecom-2025-premium-quality-389130.jpg?v=1743878955", category: "Kits", price: 90 },
     { name: "Manchester United Force of Nature Premium Kit", image: "https://footballprestige.com/cdn/shop/files/manchester-united-force-of-nature-premium-kit-2025-premium-quality-661856.png?v=1743785242", category: "Kits", price: 90 },
@@ -418,7 +418,13 @@ button:hover {
     { name: "Japan Son Goku Premium Kit", image: "https://footballprestige.com/cdn/shop/files/120.png?v=1743678819", category: "Kits", price: 90 },
     { name: "Japan Sakura Dragon Tracksuit", image: "https://footballprestige.com/cdn/shop/files/japan-sakura-dragon-tracksuit-2024-premium-quality-jersey-831133.jpg?v=1730728405", category: "Kits", price: 100 },
     { name: "Brazil 2024 Jesus Premium Tracksuit", image: "https://i.pinimg.com/736x/31/44/ef/3144ef786185331ed5ce03e748992c21.jpg", category: "Kits", price: 100 },
-    { name: "Japan Supra Special Kit", image: "https://footballprestige.com/cdn/shop/files/japan-supra-special-kit-premium-quality-jersey-exclusive-collection-452399.jpg?v=1723118287", category: "Kits", price: 90 }
+    { name: "Japan Supra Special Kit", image: "https://footballprestige.com/cdn/shop/files/japan-supra-special-kit-premium-quality-jersey-exclusive-collection-452399.jpg?v=1723118287", category: "Kits", price: 90 },
+
+    // Added Balls
+    { name: "Premier League Flight Ball", image: "https://cdn.ultrafootball.com/products/premier-league-flight-ball.jpg", category: "Balls", price: 130 },
+    { name: "Context 25 Pro Ball", image: "https://cdn.ultrafootball.com/products/context-25-pro-ball.jpg", category: "Balls", price: 110 },
+    { name: "UWCL Pro 24-25 Group Stage Ball", image: "https://cdn.ultrafootball.com/products/uwcl-pro-24-25-group-stage-ball.jpg", category: "Balls", price: 150 },
+    { name: "A-Leagues Ultimax Pro 24-25 Finals Ball", image: "https://cdn.ultrafootball.com/products/a-leagues-ultimax-pro-24-25-finals-ball.jpg", category: "Balls", price: 140 },
   ];
 
   // Load products on page load
@@ -428,7 +434,7 @@ button:hover {
       const div = document.createElement('div');
       div.className = 'product-card';
 
-      // Generate size options
+      // Generate size options only for Boots and Kits
       let sizes = '';
       if(p.category === "Boots") {
         sizes = `<select class="size-select" required>
