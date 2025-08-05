@@ -23,10 +23,6 @@ body {
 
 /* Header styling */
 header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px 30px;
   background: linear-gradient(45deg, #0f2027, #203a43, #2c5364);
   background-size: 600% 600%;
   animation: gradientShift 20s ease infinite;
@@ -34,32 +30,49 @@ header {
   top: 0;
   z-index: 999;
   box-shadow: 0 0 30px rgba(240, 192, 64, 0.7);
+  padding: 20px 30px;
 }
+
+/* Animate background gradient */
 @keyframes gradientShift {
   0% {background-position: 0% 50%;}
   50% {background-position: 100% 50%;}
   100% {background-position: 0% 50%;}
 }
-.header-top {
+
+/* Flex container for header content */
+.header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.brand {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
 }
+
 .logo {
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
+  width: 80px;
+  height: 80px;
+  margin-right: 18px;
 }
+
 .store-title {
-  font-size: 2em;
+  font-size: 2.5em;
   font-weight: bold;
   color: #f0c040;
   text-shadow: 0 0 10px #f0c040;
 }
+
 nav {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
 }
+
 nav a {
   margin: 5px 10px;
   padding: 8px 14px;
@@ -73,10 +86,12 @@ nav a {
   color: #fff;
   transition: all 0.3s ease;
 }
+
 nav a:hover {
   transform: scale(1.05);
   box-shadow: 0 0 20px #f0c040 inset;
 }
+
 @keyframes navGradient {
   0% {background-position: 0% 50%;}
   50% {background-position: 100% 50%;}
@@ -284,29 +299,36 @@ button:hover {
 
 /* Responsive adjustments */
 @media(max-width: 600px){
-  header {
+  /* Stack brand and nav vertically on small screens */
+  .header-flex {
     flex-direction: column;
+    align-items: center;
   }
   nav {
-    flex-direction: column;
+    justify-content: center;
+    margin-top: 10px;
   }
 }
+
+/* Keyframe animations from original CSS remain the same */
 </style>
 </head>
 <body>
 
 <!-- Header with logo + store name -->
 <header>
-  <div class="header-top" style="display:flex; align-items:center; width:100%; justify-content:center;">
-    <img src="https://i.pinimg.com/736x/40/22/02/40220229b5ba8908ae1b925585011eb7.jpg" alt="Logo" class="logo" style="width:50px; height:50px; margin-right:10px;">
-    <div class="store-title" style="font-size:2em; font-weight:bold; color:#f0c040; text-shadow:0 0 10px #f0c040;">Soccer Empire</div>
+  <div class="header-flex">
+    <div class="brand">
+      <img src="https://i.pinimg.com/736x/40/22/02/40220229b5ba8908ae1b925585011eb7.jpg" alt="Logo" class="logo">
+      <div class="store-title">Soccer Empire</div>
+    </div>
+    <nav>
+      <a href="#home" onclick="showSection('home')">Home</a>
+      <a href="#shop" onclick="showSection('shop')">Shop</a>
+      <a href="#cart" onclick="showSection('cart')">Cart</a>
+      <a href="#contact" onclick="showSection('contact')">Contact</a>
+    </nav>
   </div>
-  <nav style="margin-top:10px;">
-    <a href="#home" onclick="showSection('home')">Home</a>
-    <a href="#shop" onclick="showSection('shop')">Shop</a>
-    <a href="#cart" onclick="showSection('cart')">Cart</a>
-    <a href="#contact" onclick="showSection('contact')">Contact</a>
-  </nav>
 </header>
 
 <!-- Sections -->
@@ -429,7 +451,6 @@ button:hover {
       div.querySelector('button').addEventListener('click', function() {
         const sizeSelect = div.querySelector('.size-select');
         let size = null;
-        // For Boots or Kits, require size
         if (sizeSelect) {
           size = sizeSelect.value;
           if (!size) {
