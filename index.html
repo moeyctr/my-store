@@ -98,7 +98,7 @@ section.active {
   display: block;
 }
 
-/* Styles for #home to make it longer and center content vertically */
+/* Style for #home */
 #home {
   display: flex;
   flex-direction: column;
@@ -121,7 +121,7 @@ section.active {
   margin-top: 20px;
 }
 
-/* Welcome and headers styling */
+/* Welcome header styling */
 #welcome {
   display: flex;
   justify-content: center;
@@ -161,7 +161,7 @@ h3 {
   gap: 20px;
   margin-top: 20px;
 }
-/* Product card styles */
+/* Product card styling */
 .product-card {
   background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
   padding: 10px;
@@ -183,7 +183,7 @@ h3 {
   margin: 8px 0;
   text-align: center;
 }
-/* Style the size selector to match theme */
+/* Styled size selector to match theme */
 .size-select {
   width: 100%;
   padding: 8px;
@@ -218,7 +218,7 @@ button:hover {
   transform: scale(1.05);
 }
 
-/* Cart styles */
+/* Cart styling */
 #cart {
   max-width: 900px;
   margin: auto;
@@ -325,7 +325,7 @@ button:hover {
 <header>
   <div class="header-flex">
     <div class="brand">
-      <img src="https://i.pinimg.com/736x/19/c1/50/19c1502704de2be9ff31ea8a55c6d865.jpg" alt="Logo" class="logo" />
+      <img src="https://i.pinimg.com/736x/19/c1/50/19c1502704de2be9ff31ea8a55c6d865.jpg" class="logo" />
       <div class="store-title">Soccer Empire</div>
     </div>
     <nav>
@@ -342,9 +342,7 @@ button:hover {
 <section id="home">
   <div class="content-container">
     <h2>Welcome to Soccer Empire</h2>
-    <p>
-      Soccer Empire is your premier destination for authentic football apparel, cutting-edge boots, and exclusive soccer balls. With the latest kits from the world's top clubs, specialty tracksuits, and official match balls, Soccer Empire delivers quality, style, and passion for every football fan and athlete. Shop with confidence and experience the essence of the beautiful game all in one place.
-    </p>
+    <p>Your premier destination for football gear and apparel.</p>
     <div class="image-row">
       <img src="https://i0.wp.com/www.soccercleats101.com/wp-content/uploads/2019/03/Nike-Victory.jpg?ssl=1" width="300" style="margin:10px; border-radius:10px;">
       <img src="https://i.pinimg.com/1200x/00/77/59/007759bda2cb5fc069984e67977eca5d.jpg" width="300" style="margin:10px; border-radius:10px;">
@@ -357,7 +355,7 @@ button:hover {
 <section id="reviews">
   <h2 style="text-align:center; margin-top:20px;">Customer Reviews</h2>
   <div id="reviews-list" style="margin-top:20px; max-width:800px; margin-left:auto; margin-right:auto; padding:0 10px;">
-    <!-- Reviews will be injected here -->
+    <!-- Reviews will appear here -->
   </div>
   <h3 style="margin-top:40px; text-align:center;">Leave a Review</h3>
   <form id="review-form" style="max-width:600px; margin:20px auto; display:flex; flex-direction:column;">
@@ -434,7 +432,7 @@ button:hover {
 </footer>
 
 <script>
-// Map initialization
+// Initialize Google Map
 function initMap() {
   var location = { lat: -37.642544, lng: 144.940123 };
   var map = new google.maps.Map(document.getElementById('googleMap'), {
@@ -520,49 +518,32 @@ function renderProducts() {
   });
 }
 
-// Your existing showSection, addToCart, displayReviews etc.
-window.onload = () => {
-  renderProducts();
-  displayReviews();
-  showSection('home');
-  loadFakeReviews();
-};
-
-
-
-
-// --- Reviews data and functions ---
+// --- Reviews data ---
 let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
 if (reviews.length === 0) {
-  // generate 17 reviews: 15 5-star, 2 4-star
+  // 15 five-star reviews
   for (let i=1; i<=15; i++) {
     reviews.push({name: "Customer " + i, text: "Excellent store! Love the products!", stars: 5});
   }
-  for (let i=16; i<=17; i++) {
-    reviews.push({name: "Customer " + i, text: "Good store, but could improve.", stars: 4});
-  }
+  // 2 four-star reviews
+  reviews.push({name: "Alex Johnson", text: "Good store, but could improve.", stars: 4});
+  reviews.push({name: "Maria Lopez", text: "Pretty good, will buy again.", stars: 4});
   localStorage.setItem('reviews', JSON.stringify(reviews));
 }
 
-// Display reviews
 function displayReviews() {
   const container = document.getElementById('reviews-list');
   container.innerHTML = '';
-  reviews.forEach((rev) => {
+  reviews.forEach(rev => {
     const div = document.createElement('div');
     div.style.border = "1px solid #f0c040";
     div.style.borderRadius = "8px";
     div.style.padding = "10px";
     div.style.marginBottom = "10px";
 
-    // Stars display
     let starsDisplay = '';
-    for (let i=0; i<rev.stars; i++) {
-      starsDisplay += '★';
-    }
-    for (let i=rev.stars; i<5; i++) {
-      starsDisplay += '☆';
-    }
+    for (let i=0; i<rev.stars; i++) starsDisplay += '★';
+    for (let i=rev.stars; i<5; i++) starsDisplay += '☆';
 
     div.innerHTML = `<strong style="color:#f0c040;">${rev.name}</strong>
                      <div style="color:#f0c040;">${starsDisplay}</div>
@@ -571,7 +552,7 @@ function displayReviews() {
   });
 }
 
-// Add review
+// Submit review
 document.getElementById('review-form').addEventListener('submit', (e) => {
   e.preventDefault();
   const name = document.getElementById('reviewerName').value.trim();
@@ -585,11 +566,14 @@ document.getElementById('review-form').addEventListener('submit', (e) => {
   }
 });
 
-// Load reviews on startup
-function loadFakeReviews() {
-  // Already loaded above if empty
-}
+// Load everything on window load
+window.onload = () => {
+  renderProducts();
+  displayReviews();
+  showSection('home');
+};
 </script>
+<!-- Google Maps API -->
 <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
 </body>
 </html>
