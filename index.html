@@ -109,6 +109,25 @@ section.active {
   display: block;
 }
 
+/* Updated styles for #home to make it longer and centered content */
+#home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* makes the section longer if needed */
+  padding-bottom: 40px;
+}
+
+/* Content container inside #home for centered paragraph and max width */
+#home .content-container {
+  max-width: 700px; /* constrains the width of the paragraph */
+  width: 100%;
+  margin: 0 auto;
+  text-align: center; /* centers the text inside */
+  padding: 20px;
+}
+
 /* Welcome banner style */
 #welcome {
   display: flex;
@@ -309,8 +328,6 @@ button:hover {
     margin-top: 10px;
   }
 }
-
-/* Keyframe animations from original CSS remain the same */
 </style>
 </head>
 <body>
@@ -319,7 +336,7 @@ button:hover {
 <header>
   <div class="header-flex">
     <div class="brand">
-      <img src="https://i.pinimg.com/736x/19/c1/50/19c1502704de2be9ff31ea8a55c6d865.jpg" alt="Logo" class="logo">
+      <img src="https://i.pinimg.com/736x/19/c1/50/19c1502704de2be9ff31ea8a55c6d865.jpg" alt="Logo" class="logo" />
       <div class="store-title">Soccer Empire</div>
     </div>
     <nav>
@@ -332,15 +349,17 @@ button:hover {
 </header>
 
 <!-- Sections -->
-<section id="home" style="display:flex; flex-direction:column; justify-content:center; align-items:center; max-width: 1000px; margin: 0 auto; padding-bottom: 40px;">
-  <h2>Welcome to Soccer Empire</h2>
-  <p style="max-width: 700px; font-size: 1.2em; color: #ffd700; margin: 15px 0; text-align: center; line-height: 1.5;">
-    Soccer Empire is your premier destination for authentic football apparel, cutting-edge boots, and exclusive soccer balls. With the latest kits from the world's top clubs, specialty tracksuits, and official match balls, Soccer Empire delivers quality, style, and passion for every football fan and athlete. Shop with confidence and experience the essence of the beautiful game all in one place.
-  </p>
-  <div style="display:flex; flex-wrap:wrap; justify-content:center;">
-    <img src="https://i0.wp.com/www.soccercleats101.com/wp-content/uploads/2019/03/Nike-Victory.jpg?ssl=1" width="300" style="margin:10px; border-radius:10px;">
-    <img src="https://i.pinimg.com/1200x/00/77/59/007759bda2cb5fc069984e67977eca5d.jpg" width="300" style="margin:10px; border-radius:10px;">
-    <img src="https://i.pinimg.com/736x/21/78/b0/2178b03aaa46ad4a192f96ab148d7513.jpg" width="300" style="margin:10px; border-radius:10px;">
+<section id="home">
+  <div class="content-container">
+    <h2>Welcome to Soccer Empire</h2>
+    <p>
+      Soccer Empire is your premier destination for authentic football apparel, cutting-edge boots, and exclusive soccer balls. With the latest kits from the world's top clubs, specialty tracksuits, and official match balls, Soccer Empire delivers quality, style, and passion for every football fan and athlete. Shop with confidence and experience the essence of the beautiful game all in one place.
+    </p>
+    <div style="display:flex; flex-wrap:wrap; justify-content:center;">
+      <img src="https://i0.wp.com/www.soccercleats101.com/wp-content/uploads/2019/03/Nike-Victory.jpg?ssl=1" width="300" style="margin:10px; border-radius:10px;">
+      <img src="https://i.pinimg.com/1200x/00/77/59/007759bda2cb5fc069984e67977eca5d.jpg" width="300" style="margin:10px; border-radius:10px;">
+      <img src="https://i.pinimg.com/736x/21/78/b0/2178b03aaa46ad4a192f96ab148d7513.jpg" width="300" style="margin:10px; border-radius:10px;">
+    </div>
   </div>
 </section>
 
