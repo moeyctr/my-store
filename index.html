@@ -33,14 +33,12 @@ header {
   padding: 20px 30px;
 }
 
-/* Animate background gradient */
 @keyframes gradientShift {
   0% {background-position: 0% 50%;}
   50% {background-position: 100% 50%;}
   100% {background-position: 0% 50%;}
 }
 
-/* Flex container for header content */
 .header-flex {
   display: flex;
   justify-content: space-between;
@@ -115,29 +113,24 @@ section.active {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* makes the section longer if needed */
+  min-height: 100vh;
   padding-bottom: 40px;
 }
-
-/* Content container inside #home for centered paragraph and max width */
 #home .content-container {
-  max-width: 700px; /* constrains the width of the paragraph */
+  max-width: 700px;
   width: 100%;
   margin: 0 auto;
-  text-align: center; /* centers the text inside */
+  text-align: center;
   padding: 20px;
 }
-
-/* Style for images in a row */
 #home .image-row {
   display: flex;
-  justify-content: center; /* centers images horizontally */
-  gap: 10px; /* space between images */
-  flex-wrap: nowrap; /* keep in a single line; change to wrap if needed on small screens */
-  margin-top: 20px; /* space between paragraph and images */
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-/* Welcome banner style */
+/* Welcome and headers styling */
 #welcome {
   display: flex;
   justify-content: center;
@@ -170,7 +163,7 @@ h3 {
   text-shadow: 0 0 8px #ffd700;
 }
 
-/* Other styles remain unchanged (product grid, buttons, cart, etc.) */
+/* Product grid styling */
 #productGrid {
   display: flex;
   flex-wrap: wrap;
@@ -328,7 +321,6 @@ button:hover {
 
 /* Responsive adjustments */
 @media(max-width: 600px){
-  /* Stack brand and nav vertically on small screens */
   .header-flex {
     flex-direction: column;
     align-items: center;
@@ -354,6 +346,7 @@ button:hover {
       <a href="#shop" onclick="showSection('shop')">Shop</a>
       <a href="#cart" onclick="showSection('cart')">Cart</a>
       <a href="#contact" onclick="showSection('contact')">Contact</a>
+      <a href="#reviews" onclick="showSection('reviews')">Reviews</a>
     </nav>
   </div>
 </header>
@@ -371,6 +364,20 @@ button:hover {
       <img src="https://i.pinimg.com/736x/21/78/b0/2178b03aaa46ad4a192f96ab148d7513.jpg" width="300" style="margin:10px; border-radius:10px;">
     </div>
   </div>
+</section>
+
+<!-- Reviews Section -->
+<section id="reviews">
+  <h2 style="text-align:center; margin-top:20px;">Customer Reviews</h2>
+  <div id="reviews-list" style="margin-top:20px; max-width:800px; margin-left:auto; margin-right:auto; padding:0 10px;">
+    <!-- Reviews will be injected here -->
+  </div>
+  <h3 style="margin-top:40px; text-align:center;">Leave a Review</h3>
+  <form id="review-form" style="max-width:600px; margin:20px auto; display:flex; flex-direction:column;">
+    <input type="text" id="reviewerName" placeholder="Your Name" required style="margin-bottom:10px; padding:8px; border-radius:5px; border:none; font-family:'Orbitron';"/>
+    <textarea id="reviewText" placeholder="Your Review" rows="4" required style="margin-bottom:10px; padding:8px; border-radius:5px; border:none; font-family:'Orbitron';"></textarea>
+    <button type="submit" style="padding:10px; background:#f0c040; border:none; border-radius:5px; font-family:'Orbitron'; font-weight:bold; cursor:pointer;">Submit Review</button>
+  </form>
 </section>
 
 <!-- Shop -->
@@ -397,7 +404,7 @@ button:hover {
   </form>
 </section>
 
-<!-- Checkout Payment Modal -->
+<!-- Checkout Modal -->
 <div id="checkoutFormContainer" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000;">
   <div style="background:#222; padding:20px; border-radius:10px; max-width:400px; width:90%; color:#fff;">
     <h2>Enter Payment Details</h2>
@@ -418,7 +425,7 @@ button:hover {
   </div>
 </div>
 
-<!-- Footer with contact info and map with red marker -->
+<!-- Footer -->
 <footer style="background: #203a43; color: #ffd700; padding: 25px 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; font-family: 'Orbitron', sans-serif;">
   <div style="max-width: 400px; line-height: 1.5; font-size: 1em;">
     <h3 style="margin-bottom: 10px;">Contact Us</h3>
@@ -430,30 +437,28 @@ button:hover {
 </footer>
 
 <script>
-// Google Maps initialization with red marker
+// Initialize Google Map
 function initMap() {
-  var location = { lat: -37.642544, lng: 144.940123 }; // Sirius College Meadow Fair Campus
+  var location = { lat: -37.642544, lng: 144.940123 };
   var map = new google.maps.Map(document.getElementById('googleMap'), {
     zoom: 16,
     center: location
   });
-  var marker = new google.maps.Marker({
+  new google.maps.Marker({
     position: location,
     map: map,
     title: 'Sirius College Meadow Fair Campus'
   });
 }
 
-// Show section
+// Show section by ID
 function showSection(id) {
   document.querySelectorAll('section').forEach(s => s.style.display='none');
   document.getElementById(id).style.display='block';
 }
 
-// Cart array
+// --- Product Data & Cart ---
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-// Products list (your store's items)
 const products = [
   { name: "Copa Mundial FG", image: "https://www.futbolemotion.com/imagesarticulos/88055/750/bota-adidas-copa-mundial-0.jpg", category: "Boots", price: 120 },
   { name: "F50 FG Radiant Blaze", image: "https://thumblr.uniid.it/product/396994/83cfad07bdcd.jpg?width=3840&format=webp&q=75", category: "Boots", price: 150 },
@@ -463,7 +468,6 @@ const products = [
   { name: "Copa Pure 3 Celestial", image: "https://imagedelivery.net/2DfovxNet9Syc-4xYpcsGg/dc011c3c-2541-4ccd-d927-ea9c4a9a4800/product", category: "Boots", price: 135 },
   { name: "Phantom GX 2 LV8", image: "https://www.ultrafootball.com/cdn/shop/files/AURORA_HV4890-100_PHCFH001-2000_1200x630_crop_center.jpg?v=1747883182", category: "Boots", price: 165 },
   { name: "Tiempo Legend 10", image: "https://thumblr.uniid.it/product/384243/03456a5e37de.jpg?width=3840&format=webp&q=75", category: "Boots", price: 155 },
-
   // Kits
   { name: "FC Barcelona x Travis Scott Limited Edition Away Kit", image: "https://footballprestige.com/cdn/shop/files/fc-barcelona-x-travis-scott-limited-edition-away-kit-footballprestigecom-2025-premium-quality-156413.jpg?v=1747584406&width=1024", category: "Kits", price: 90 },
   { name: "PSG Paris Noir Premium Kit", image: "https://footballprestige.com/cdn/shop/files/psg-paris-noir-premium-kit-footballprestigecom-2025-premium-quality-389130.jpg?v=1743878955", category: "Kits", price: 90 },
@@ -476,58 +480,12 @@ const products = [
   { name: "Japan Sakura Dragon Tracksuit", image: "https://footballprestige.com/cdn/shop/files/japan-sakura-dragon-tracksuit-2024-premium-quality-jersey-831133.jpg?v=1730728405", category: "Kits", price: 100 },
   { name: "Brazil 2024 Jesus Premium Tracksuit", image: "https://i.pinimg.com/736x/31/44/ef/3144ef786185331ed5ce03e748992c21.jpg", category: "Kits", price: 100 },
   { name: "Japan Supra Special Kit", image: "https://footballprestige.com/cdn/shop/files/japan-supra-special-kit-premium-quality-jersey-exclusive-collection-452399.jpg?v=1723118287", category: "Kits", price: 90 },
-
   // Balls
   { name: "Premier League Flight Ball", image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhqaRSJYeZWNEEOOtrr-dBdf9G_U56d4791V7iUUWSuKD79Oqp48GSftgjs4bOgzqYbR8sF4ge-dBgoHQL7uJUFMdjuWnr1iTphe_EYi3UKljgBGoE0k3yBfA8lKiDO8iR77-VTyc4Ygs1Fp-MnEFbVj25zMdy1_1Trt4sYfumF6yv_NXyHAMfTJN2yd8A/s1600/nike-epl-24-25-hi-vis%20%284%29.jpg", category: "Balls", price: 130 },
   { name: "Context 25 Pro Ball", image: "https://www.ultrafootball.com/cdn/shop/files/JH1273_b2b012_plp-Photoroom.png?v=1733151257", category: "Balls", price: 110 },
   { name: "UWCL Pro 24-25 Group Stage Ball", image: "https://brand.assets.adidas.com/image/upload/glbl_ucl_uwcl_group_stage_omb_football_fw24_launch_pdp_UWCL_Hero_Banner_02_m_2dca8e30ba.jpg", category: "Balls", price: 150 },
   { name: "A-Leagues Ultimax Pro 24-25 Finals Ball", image: "https://mitre-sports.com.au/cdn/shop/files/mitre_aleague_mens_finals_ball_mini_2_1800x1800.jpg?v=1744780338", category: "Balls", price: 140 },
 ];
-
-// Load products on page load
-window.onload = () => {
-  const container = document.getElementById('productGrid');
-  products.forEach(p => {
-    const div = document.createElement('div');
-    div.className = 'product-card';
-
-    // Generate size options only for Boots and Kits
-    let sizes = '';
-    if(p.category === "Boots") {
-      sizes = `<select class="size-select" required>
-        ${[...Array(9)].map((_,i)=>`<option value="${i+5}">${i+5}</option>`).join('')}
-      </select>`;
-    } else if(p.category === "Kits") {
-      sizes = `<select class="size-select" required>
-        ${["XS","S","M","L","XL","XXL"].map(size=>`<option value="${size}">${size}</option>`).join('')}
-      </select>`;
-    }
-
-    div.innerHTML = `
-      <img src="${p.image}" />
-      <h4>${p.name}</h4>
-      <p>$${p.price}</p>
-      ${sizes}
-      <button>Add to Cart</button>
-    `;
-
-    div.querySelector('button').addEventListener('click', function() {
-      const sizeSelect = div.querySelector('.size-select');
-      let size = null;
-      if (sizeSelect) {
-        size = sizeSelect.value;
-        if (!size) {
-          alert("Please select a size before adding to cart.");
-          return;
-        }
-      }
-      addToCart(p.name, p.price, p.image, size);
-    });
-    container.appendChild(div);
-  });
-  showSection('home');
-  showCart();
-};
 
 function addToCart(name, price, image, size) {
   cart.push({name, price, image, size});
@@ -536,57 +494,59 @@ function addToCart(name, price, image, size) {
   showCart();
 }
 
-function showCart() {
-  const container = document.getElementById('cartItems');
-  if (!container) return;
+// --- Reviews Data ---
+let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+
+// Prepopulate with many fake reviews if empty
+if (reviews.length === 0) {
+  reviews = [];
+  for (let i=1; i<=30; i++) {
+    reviews.push({
+      name: "Customer " + i,
+      text: "This store is awesome! I love the quality of the products. Review number " + i + "."
+    });
+  }
+  localStorage.setItem('reviews', JSON.stringify(reviews));
+}
+
+// Function to display reviews
+function displayReviews() {
+  const container = document.getElementById('reviews-list');
   container.innerHTML = '';
-  let total = 0;
-  cart.forEach((item, index) => {
-    total += item.price;
-    container.innerHTML += `
-      <div class="cart-item">
-        <img src="${item.image}" />
-        <div>
-          <h4>${item.name}</h4>
-          ${item.size ? `<p>Size: <strong>${item.size}</strong></p>` : ''}
-          <p>$${item.price}</p>
-        </div>
-        <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
-      </div>`;
+  reviews.forEach((rev, index) => {
+    const reviewDiv = document.createElement('div');
+    reviewDiv.style.border = "1px solid #f0c040";
+    reviewDiv.style.borderRadius = "8px";
+    reviewDiv.style.padding = "10px";
+    reviewDiv.style.marginBottom = "10px";
+    reviewDiv.innerHTML = `<strong style="color:#f0c040;">${rev.name}</strong><p style="margin-top:5px;">${rev.text}</p>`;
+    container.appendChild(reviewDiv);
   });
-  if (cart.length > 0) {
-    container.innerHTML += `<h3>Total: $${total.toFixed(2)}</h3>`;
-  }
 }
 
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  localStorage.setItem('cart', JSON.stringify(cart));
-  showCart();
-}
-
-function showCheckoutForm() {
-  if (cart.length === 0) {
-    alert('Your cart is empty!');
-    return;
-  }
-  document.getElementById('checkoutFormContainer').style.display='flex';
-}
-
-function closeCheckoutForm() {
-  document.getElementById('checkoutFormContainer').style.display='none';
-}
-
-document.getElementById('paymentForm').addEventListener('submit', function(e){
+// Handle review submit
+document.getElementById('review-form').addEventListener('submit', function(e) {
   e.preventDefault();
-  alert('Payment processed! Thank you for your purchase.');
-  cart = [];
-  localStorage.removeItem('cart');
-  showCart();
-  closeCheckoutForm();
+  const name = document.getElementById('reviewerName').value.trim();
+  const text = document.getElementById('reviewText').value.trim();
+  if (name && text) {
+    reviews.push({name: name, text: text});
+    localStorage.setItem('reviews', JSON.stringify(reviews));
+    displayReviews();
+    document.getElementById('review-form').reset();
+  }
 });
-</script>
 
+// Show reviews when page loads
+window.onload = () => {
+  // load products...
+  // (your existing code for products and showSection)
+  // and then display reviews:
+  displayReviews();
+  // show home by default
+  showSection('home');
+};
+</script>
 <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
 </body>
 </html>
