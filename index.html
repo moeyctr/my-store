@@ -161,7 +161,7 @@ h3 {
   gap: 20px;
   margin-top: 20px;
 }
-/* Product card styling */
+/* Product card styles */
 .product-card {
   background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
   padding: 10px;
@@ -183,7 +183,7 @@ h3 {
   margin: 8px 0;
   text-align: center;
 }
-/* Styled size selector */
+/* Style the size selector to match theme */
 .size-select {
   width: 100%;
   padding: 8px;
@@ -433,7 +433,7 @@ button:hover {
 </footer>
 
 <script>
-// Map initialization
+// Initialize Google Map
 function initMap() {
   var location = { lat: -37.642544, lng: 144.940123 };
   var map = new google.maps.Map(document.getElementById('googleMap'), {
@@ -455,7 +455,7 @@ function showSection(id) {
 // --- Product Data & Cart ---
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 const products = [
-  // ... your products array ...
+  // Your product array here
   { name: "Copa Mundial FG", image: "https://www.futbolemotion.com/imagesarticulos/88055/750/bota-adidas-copa-mundial-0.jpg", category: "Boots", price: 120 },
   { name: "F50 FG Radiant Blaze", image: "https://thumblr.uniid.it/product/396994/83cfad07bdcd.jpg?width=3840&format=webp&q=75", category: "Boots", price: 150 },
   { name: "Copa Pure 3 Laceless", image: "https://productimages.footy.com/686557694b3a4a3c66e77ca3/0/3840.webp?q=75", category: "Boots", price: 140 },
@@ -521,16 +521,8 @@ function renderProducts() {
 
 // --- Reviews ---
 let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
-if (reviews.length === 0) {
-  // Generate 15 five-star reviews
-  for (let i=1; i<=15; i++) {
-    reviews.push({name: "John Smith", text: "Excellent store! Love the products!", stars: 5});
-  }
-  // 2 four-star reviews
-  reviews.push({name: "Alex Johnson", text: "Good store, but could improve.", stars: 4});
-  reviews.push({name: "Maria Lopez", text: "Pretty good, will buy again.", stars: 4});
-  localStorage.setItem('reviews', JSON.stringify(reviews));
-}
+if (reviews.length === 0) 
+ 
 
 function displayReviews() {
   const container = document.getElementById('reviews-list');
@@ -567,7 +559,23 @@ document.getElementById('review-form').addEventListener('submit', (e) => {
   }
 });
 
-// Load on window load
+// Add to cart function
+function addToCart(name, price, image, size) {
+  // Save item with size
+  const item = { name, price, image, size };
+  // Save in localStorage
+  let currentCart = JSON.parse(localStorage.getItem('cart')) || [];
+  currentCart.push(item);
+  localStorage.setItem('cart', JSON.stringify(currentCart));
+  alert("Item added to cart!");
+  showCart(); // if you have a function to display cart, call it here
+}
+
+// Dummy function to show cart (implement as needed)
+function showCart() {
+  // implement your cart display logic here if needed
+}
+// Load everything on window load
 window.onload = () => {
   renderProducts();
   displayReviews();
