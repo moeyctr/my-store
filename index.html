@@ -32,45 +32,38 @@ header {
   box-shadow: 0 0 30px rgba(240, 192, 64, 0.7);
   padding: 20px 30px;
 }
-
 @keyframes gradientShift {
   0% {background-position: 0% 50%;}
   50% {background-position: 100% 50%;}
   100% {background-position: 0% 50%;}
 }
-
 .header-flex {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
-
 .brand {
   display: flex;
   align-items: center;
 }
-
 .logo {
   width: 80px;
   height: 80px;
   margin-right: 18px;
 }
-
 .store-title {
   font-size: 2.5em;
   font-weight: bold;
   color: #f0c040;
   text-shadow: 0 0 10px #f0c040;
 }
-
 nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
   align-items: center;
 }
-
 nav a {
   margin: 5px 10px;
   padding: 8px 14px;
@@ -84,12 +77,10 @@ nav a {
   color: #fff;
   transition: all 0.3s ease;
 }
-
 nav a:hover {
   transform: scale(1.05);
   box-shadow: 0 0 20px #f0c040 inset;
 }
-
 @keyframes navGradient {
   0% {background-position: 0% 50%;}
   50% {background-position: 100% 50%;}
@@ -147,7 +138,6 @@ section.active {
   0%, 100% { text-shadow: 0 0 20px #f0c040, 0 0 40px #f0c040; }
   50% { text-shadow: 0 0 40px #f0c040, 0 0 80px #f0c040; }
 }
-
 h2 {
   text-align: center;
   font-size: 2.5em;
@@ -171,7 +161,6 @@ h3 {
   gap: 20px;
   margin-top: 20px;
 }
-
 /* Product card styles */
 .product-card {
   background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
@@ -303,23 +292,6 @@ button:hover {
   box-shadow: 0 0 25px #f0c040 inset;
   transform: scale(1.05);
 }
-
-/* Size select styles */
-.size-select {
-  width: 100%;
-  padding: 6px;
-  border-radius: 8px;
-  margin-top: 6px;
-  font-family: 'Orbitron', sans-serif;
-  margin-bottom: 8px;
-  background: #fff;
-  color: #353535;
-  font-weight: bold;
-  border: none;
-  outline: none;
-}
-
-/* Responsive adjustments */
 @media(max-width: 600px){
   .header-flex {
     flex-direction: column;
@@ -334,7 +306,7 @@ button:hover {
 </head>
 <body>
 
-<!-- Header with logo + store name -->
+<!-- Header -->
 <header>
   <div class="header-flex">
     <div class="brand">
@@ -451,7 +423,7 @@ function initMap() {
   });
 }
 
-// Show section by ID
+// Show section function
 function showSection(id) {
   document.querySelectorAll('section').forEach(s => s.style.display='none');
   document.getElementById(id).style.display='block';
@@ -468,6 +440,7 @@ const products = [
   { name: "Copa Pure 3 Celestial", image: "https://imagedelivery.net/2DfovxNet9Syc-4xYpcsGg/dc011c3c-2541-4ccd-d927-ea9c4a9a4800/product", category: "Boots", price: 135 },
   { name: "Phantom GX 2 LV8", image: "https://www.ultrafootball.com/cdn/shop/files/AURORA_HV4890-100_PHCFH001-2000_1200x630_crop_center.jpg?v=1747883182", category: "Boots", price: 165 },
   { name: "Tiempo Legend 10", image: "https://thumblr.uniid.it/product/384243/03456a5e37de.jpg?width=3840&format=webp&q=75", category: "Boots", price: 155 },
+
   // Kits
   { name: "FC Barcelona x Travis Scott Limited Edition Away Kit", image: "https://footballprestige.com/cdn/shop/files/fc-barcelona-x-travis-scott-limited-edition-away-kit-footballprestigecom-2025-premium-quality-156413.jpg?v=1747584406&width=1024", category: "Kits", price: 90 },
   { name: "PSG Paris Noir Premium Kit", image: "https://footballprestige.com/cdn/shop/files/psg-paris-noir-premium-kit-footballprestigecom-2025-premium-quality-389130.jpg?v=1743878955", category: "Kits", price: 90 },
@@ -480,6 +453,7 @@ const products = [
   { name: "Japan Sakura Dragon Tracksuit", image: "https://footballprestige.com/cdn/shop/files/japan-sakura-dragon-tracksuit-2024-premium-quality-jersey-831133.jpg?v=1730728405", category: "Kits", price: 100 },
   { name: "Brazil 2024 Jesus Premium Tracksuit", image: "https://i.pinimg.com/736x/31/44/ef/3144ef786185331ed5ce03e748992c21.jpg", category: "Kits", price: 100 },
   { name: "Japan Supra Special Kit", image: "https://footballprestige.com/cdn/shop/files/japan-supra-special-kit-premium-quality-jersey-exclusive-collection-452399.jpg?v=1723118287", category: "Kits", price: 90 },
+
   // Balls
   { name: "Premier League Flight Ball", image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhqaRSJYeZWNEEOOtrr-dBdf9G_U56d4791V7iUUWSuKD79Oqp48GSftgjs4bOgzqYbR8sF4ge-dBgoHQL7uJUFMdjuWnr1iTphe_EYi3UKljgBGoE0k3yBfA8lKiDO8iR77-VTyc4Ygs1Fp-MnEFbVj25zMdy1_1Trt4sYfumF6yv_NXyHAMfTJN2yd8A/s1600/nike-epl-24-25-hi-vis%20%284%29.jpg", category: "Balls", price: 130 },
   { name: "Context 25 Pro Ball", image: "https://www.ultrafootball.com/cdn/shop/files/JH1273_b2b012_plp-Photoroom.png?v=1733151257", category: "Balls", price: 110 },
@@ -487,64 +461,45 @@ const products = [
   { name: "A-Leagues Ultimax Pro 24-25 Finals Ball", image: "https://mitre-sports.com.au/cdn/shop/files/mitre_aleague_mens_finals_ball_mini_2_1800x1800.jpg?v=1744780338", category: "Balls", price: 140 },
 ];
 
-function addToCart(name, price, image, size) {
-  cart.push({name, price, image, size});
-  localStorage.setItem('cart', JSON.stringify(cart));
-  alert('Added to cart!');
-  showCart();
-}
+function renderProducts() {
+  const container = document.getElementById('productGrid');
+  container.innerHTML = ''; // clear previous
+  products.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'product-card';
 
-// --- Reviews Data ---
-let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+    let sizes = '';
+    if (p.category === "Boots") {
+      sizes = `<select class="size-select" required>
+        ${[...Array(9)].map((_,i)=>`<option value="${i+5}">${i+5}</option>`).join('')}
+      </select>`;
+    } else if (p.category === "Kits") {
+      sizes = `<select class="size-select" required>
+        ${["XS","S","M","L","XL","XXL"].map(size=>`<option value="${size}">${size}</option>`).join('')}
+      </select>`;
+    }
 
-// Prepopulate with many fake reviews if empty
-if (reviews.length === 0) {
-  reviews = [];
-  for (let i=1; i<=30; i++) {
-    reviews.push({
-      name: "Customer " + i,
-      text: "This store is awesome! I love the quality of the products. Review number " + i + "."
-    });
-  }
-  localStorage.setItem('reviews', JSON.stringify(reviews));
-}
-
-// Function to display reviews
-function displayReviews() {
-  const container = document.getElementById('reviews-list');
-  container.innerHTML = '';
-  reviews.forEach((rev, index) => {
-    const reviewDiv = document.createElement('div');
-    reviewDiv.style.border = "1px solid #f0c040";
-    reviewDiv.style.borderRadius = "8px";
-    reviewDiv.style.padding = "10px";
-    reviewDiv.style.marginBottom = "10px";
-    reviewDiv.innerHTML = `<strong style="color:#f0c040;">${rev.name}</strong><p style="margin-top:5px;">${rev.text}</p>`;
-    container.appendChild(reviewDiv);
+    div.innerHTML = `
+      <img src="${p.image}" />
+      <h4>${p.name}</h4>
+      <p>$${p.price}</p>
+      ${sizes}
+      <button>Add to Cart</button>
+    `;
+    div.querySelector('button').onclick = () => {
+      const sizeEl = div.querySelector('.size-select');
+      const size = sizeEl ? sizeEl.value : null;
+      addToCart(p.name, p.price, p.image, size);
+    };
+    container.appendChild(div);
   });
 }
 
-// Handle review submit
-document.getElementById('review-form').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const name = document.getElementById('reviewerName').value.trim();
-  const text = document.getElementById('reviewText').value.trim();
-  if (name && text) {
-    reviews.push({name: name, text: text});
-    localStorage.setItem('reviews', JSON.stringify(reviews));
-    displayReviews();
-    document.getElementById('review-form').reset();
-  }
-});
-
-// Show reviews when page loads
+// Your existing code for showSection, addToCart, displayReviews, etc.
 window.onload = () => {
-  // load products...
-  // (your existing code for products and showSection)
-  // and then display reviews:
+  renderProducts();
   displayReviews();
-  // show home by default
-  showSection('home');
+  showSection('home'); // default to home
 };
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
