@@ -183,7 +183,7 @@ h3 {
   margin: 8px 0;
   text-align: center;
 }
-/* Styled size selector to match theme */
+/* Styled size selector */
 .size-select {
   width: 100%;
   padding: 8px;
@@ -198,6 +198,7 @@ h3 {
   margin-bottom: 8px;
   cursor: pointer;
 }
+/* Buttons */
 button {
   display: block;
   width: 100%;
@@ -218,7 +219,7 @@ button:hover {
   transform: scale(1.05);
 }
 
-/* Cart styling */
+/* Cart styles */
 #cart {
   max-width: 900px;
   margin: auto;
@@ -432,7 +433,7 @@ button:hover {
 </footer>
 
 <script>
-// Initialize Google Map
+// Map initialization
 function initMap() {
   var location = { lat: -37.642544, lng: 144.940123 };
   var map = new google.maps.Map(document.getElementById('googleMap'), {
@@ -446,7 +447,6 @@ function initMap() {
   });
 }
 
-// Show section
 function showSection(id) {
   document.querySelectorAll('section').forEach(s => s.style.display='none');
   document.getElementById(id).style.display='block';
@@ -455,6 +455,7 @@ function showSection(id) {
 // --- Product Data & Cart ---
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 const products = [
+  // ... your products array ...
   { name: "Copa Mundial FG", image: "https://www.futbolemotion.com/imagesarticulos/88055/750/bota-adidas-copa-mundial-0.jpg", category: "Boots", price: 120 },
   { name: "F50 FG Radiant Blaze", image: "https://thumblr.uniid.it/product/396994/83cfad07bdcd.jpg?width=3840&format=webp&q=75", category: "Boots", price: 150 },
   { name: "Copa Pure 3 Laceless", image: "https://productimages.footy.com/686557694b3a4a3c66e77ca3/0/3840.webp?q=75", category: "Boots", price: 140 },
@@ -518,12 +519,12 @@ function renderProducts() {
   });
 }
 
-// --- Reviews data ---
+// --- Reviews ---
 let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
 if (reviews.length === 0) {
-  // 15 five-star reviews
+  // Generate 15 five-star reviews
   for (let i=1; i<=15; i++) {
-    reviews.push({name: "Customer " + i, text: "Excellent store! Love the products!", stars: 5});
+    reviews.push({name: "John Smith", text: "Excellent store! Love the products!", stars: 5});
   }
   // 2 four-star reviews
   reviews.push({name: "Alex Johnson", text: "Good store, but could improve.", stars: 4});
@@ -566,7 +567,7 @@ document.getElementById('review-form').addEventListener('submit', (e) => {
   }
 });
 
-// Load everything on window load
+// Load on window load
 window.onload = () => {
   renderProducts();
   displayReviews();
