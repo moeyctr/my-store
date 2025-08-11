@@ -510,16 +510,8 @@ function renderProducts() {
 }
 
 // --- Reviews ---
+// Removed initial fake reviews setup. Now reviews only come from localStorage or user input.
 let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
-if (reviews.length === 0) {
-  // Generate fake reviews
-  for (let i=1; i<=15; i++) {
-    reviews.push({name: "John Smith", text: "Excellent store! Love the products!", stars: 5});
-  }
-  reviews.push({name: "Alex Johnson", text: "Good store, but could improve.", stars: 4});
-  reviews.push({name: "Maria Lopez", text: "Pretty good, will buy again.", stars: 4});
-  localStorage.setItem('reviews', JSON.stringify(reviews));
-}
 
 function displayReviews() {
   const container = document.getElementById('reviews-list');
@@ -542,7 +534,7 @@ function displayReviews() {
   });
 }
 
-// Submit review
+// --- Review form submission ---
 document.getElementById('review-form').addEventListener('submit', (e) => {
   e.preventDefault();
   const name = document.getElementById('reviewerName').value.trim();
@@ -564,7 +556,6 @@ function addToCart(name, price, image, size) {
   alert("Item added to cart");
 }
 
-// Show cart items
 function showCart() {
   const container = document.getElementById('cartItems');
   container.innerHTML = '';
@@ -589,7 +580,6 @@ function showCart() {
   });
 }
 
-// Remove item from cart
 function removeFromCart(index) {
   let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
   cartItems.splice(index, 1);
@@ -597,7 +587,7 @@ function removeFromCart(index) {
   showCart();
 }
 
-// Show checkout modal
+// --- Checkout modal functions ---
 function showCheckout() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
   if (cart.length === 0) {
@@ -606,56 +596,39 @@ function showCheckout() {
   }
   document.getElementById('checkoutFormContainer').style.display = 'flex';
 }
-
-// Close checkout modal
 function closeCheckoutForm() {
   document.getElementById('checkoutFormContainer').style.display = 'none';
 }
 
-// Handle payment form submission
+// --- Payment form submission ---
 document.getElementById('paymentForm').addEventListener('submit', function(e) {
   e.preventDefault();
-
-  // Basic validation
   const name = document.getElementById('name').value.trim();
   const cc = document.getElementById('ccnumber').value.trim();
   const exp = document.getElementById('exp').value.trim();
   const cvv = document.getElementById('cvv').value.trim();
   const address = document.getElementById('address').value.trim();
-
   if (!name || !cc || !exp || !cvv || !address) {
     alert("Please fill in all fields.");
     return;
   }
-
-  // Simulate payment processing
   alert(`Thank you, ${name}! Your payment has been processed.`);
-
-  // Clear cart
   localStorage.removeItem('cart');
-
-  // Close modal
   closeCheckoutForm();
-
-  // Show a success message
   alert("Your order has been placed successfully! Thank you for shopping with us.");
-
-  // Return to home
   showSection('home');
-
-  // Refresh cart display if on cart page
   if (document.getElementById('cart').style.display === 'block') {
     showCart();
   }
 });
 
-// When navigating to cart, show items
+// --- Navigation to cart ---
 document.querySelector("a[href='#cart']").onclick = () => {
   showSection('cart');
   showCart();
 };
 
-// Show initial page
+// --- Page Load ---
 window.onload = () => {
   renderProducts();
   displayReviews();
