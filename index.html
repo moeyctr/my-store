@@ -510,7 +510,8 @@ function renderProducts() {
 }
 
 // --- Reviews ---
-// Removed initial fake reviews setup. Now reviews only come from localStorage or user input.
+// Removed the code that auto-populates fake reviews.
+// Reviews only come from localStorage or user input now.
 let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
 
 function displayReviews() {
@@ -600,18 +601,21 @@ function closeCheckoutForm() {
   document.getElementById('checkoutFormContainer').style.display = 'none';
 }
 
-// --- Payment form submission ---
+// --- Payment form handling ---
 document.getElementById('paymentForm').addEventListener('submit', function(e) {
   e.preventDefault();
+
   const name = document.getElementById('name').value.trim();
   const cc = document.getElementById('ccnumber').value.trim();
   const exp = document.getElementById('exp').value.trim();
   const cvv = document.getElementById('cvv').value.trim();
   const address = document.getElementById('address').value.trim();
+
   if (!name || !cc || !exp || !cvv || !address) {
     alert("Please fill in all fields.");
     return;
   }
+
   alert(`Thank you, ${name}! Your payment has been processed.`);
   localStorage.removeItem('cart');
   closeCheckoutForm();
@@ -622,13 +626,13 @@ document.getElementById('paymentForm').addEventListener('submit', function(e) {
   }
 });
 
-// --- Navigation to cart ---
+// --- Navigation ---
 document.querySelector("a[href='#cart']").onclick = () => {
   showSection('cart');
   showCart();
 };
 
-// --- Page Load ---
+// --- Page initialization ---
 window.onload = () => {
   renderProducts();
   displayReviews();
