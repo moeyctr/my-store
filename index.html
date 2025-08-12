@@ -332,6 +332,22 @@ button:hover {
   </div>
 </header>
 
+<!-- Notification Banner -->
+<div id="notification" style="
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  font-family: 'Orbitron', sans-serif;
+  font-weight: bold;
+  display: none;
+  z-index: 10000;
+"></div>
+
 <!-- Sections -->
 <section id="home">
   <div class="content-container">
@@ -510,8 +526,6 @@ function renderProducts() {
 }
 
 // --- Reviews ---
-// Removed the code that auto-populates fake reviews.
-// Reviews only come from localStorage or user input now.
 let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
 
 function displayReviews() {
@@ -549,12 +563,23 @@ document.getElementById('review-form').addEventListener('submit', (e) => {
   }
 });
 
+// --- Notification functions ---
+function showNotification(message) {
+  const notification = document.getElementById('notification');
+  notification.innerText = message;
+  notification.style.display = 'block';
+
+  setTimeout(() => {
+    notification.style.display = 'none';
+  }, 3000);
+}
+
 // --- Cart functions ---
 function addToCart(name, price, image, size) {
   let currentCart = JSON.parse(localStorage.getItem('cart')) || [];
   currentCart.push({ name, price, image, size });
   localStorage.setItem('cart', JSON.stringify(currentCart));
-  alert("Item added to cart");
+  showNotification(`${name} has been added to your cart!`);
 }
 
 function showCart() {
