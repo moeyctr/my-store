@@ -729,15 +729,14 @@ window.onload = () => {
 // Search Functionality
 function searchItems() {
   const query = document.getElementById('search-input').value.toLowerCase();
-  if (!query) {
-    // If empty, show all products
-    filterProducts('all');
-    return;
-  }
   // Filter products based on search query
   const filtered = products.filter(p => p.name.toLowerCase().includes(query));
+  // Show the shop section
+  showSection('shop');
+  // Update the shop title
   const shopTitle = document.getElementById('shop-title');
   shopTitle.innerText = `Search results for "${query}"`;
+  // Render filtered products
   renderProducts(filtered);
 }
 </script>
