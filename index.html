@@ -526,138 +526,27 @@ function renderProducts() {
 }
 
 // --- Reviews ---
-let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+let reviews = [
+  { name: "Lionel Messi", text: "The quality of the balls and kits from this store is exceptional. Playing with their boots feels like I’m on the pitch every day. Highly recommend for every football lover.", stars: 5 },
+  { name: "Cristiano Ronaldo", text: "Top-notch boots and gear! The kits fit perfectly and boost confidence during every game. This is my go-to store for all my football needs.", stars: 5 },
+  { name: "Pelé", text: "A store that truly understands the game. Their balls and kits are of excellent quality, perfect for players of all levels. Keeps the spirit of football alive.", stars: 5 },
+  { name: "Zinedine Zidane", text: "Elegant and reliable, just like a great game. Their boots and kits are comfortable and stylish – ideal for players who want to perform at their best.", stars: 4 },
+  { name: "Neymar Jr.", text: "The best place to find flashy boots and vibrant kits! I love their selection, and the quality is always on point. Perfect for showing off your style on the pitch.", stars: 5 },
+  { name: "Mohamed Salah", text: "The boots and kits I find here give me the edge on the pitch. Durable and comfortable—perfect for my style of play.", stars: 5 },
+  { name: "Kevin De Bruyne", text: "Precision and quality are key, and this store delivers both. Their balls and kits are top-tier, helping me stay sharp.", stars: 5 },
+  { name: "Virgil van Dijk", text: "Strong, reliable, and well-made—just like their equipment. I trust their gear for every game.", stars: 4 },
+  { name: "Sadio Mané", text: "Fast, agile, and stylish—this store’s products match my game. Love their boots and kits for performance and flair.", stars: 5 },
+  { name: "Kylian Mbappé", text: "Lightweight and sleek, their boots make me feel faster, and their kits are perfect for high-energy matches.", stars: 5 },
+  { name: "Robert Lewandowski", text: "Effective, high-quality gear that helps me focus on scoring. Their balls and kits are second to none.", stars: 5 },
+  { name: "Alisson Becker", text: "As a goalkeeper, I need reliable equipment, and this store always provides the best gloves, boots, and gear.", stars: 5 },
+  { name: "Harry Kane", text: "Their kits fit perfectly and give me confidence during every shot. Always my first choice for football gear.", stars: 4 },
+  { name: "Paul Pogba", text: "Creative, bold, and stylish—just like their collection. Their boots make a statement on the pitch.", stars: 4 },
+  { name: "Sergio Ramos", text: "Strong and durable, their boots and kits stand up to the toughest matches. Perfect for defenders.", stars: 4 }
+];
 
-function displayReviews() {
-  const container = document.getElementById('reviews-list');
-  container.innerHTML = '';
-  reviews.forEach(rev => {
-    const div = document.createElement('div');
-    div.style.border = "1px solid #f0c040";
-    div.style.borderRadius = "8px";
-    div.style.padding = "10px";
-    div.style.marginBottom = "10px";
+// --- Your existing functions and event handlers ---
 
-    let starsDisplay = '';
-    for (let i=0; i<rev.stars; i++) starsDisplay += '★';
-    for (let i=rev.stars; i<5; i++) starsDisplay += '☆';
-
-    div.innerHTML = `<strong style="color:#f0c040;">${rev.name}</strong>
-                     <div style="color:#f0c040;">${starsDisplay}</div>
-                     <p style="margin-top:5px;">${rev.text}</p>`;
-    container.appendChild(div);
-  });
-}
-
-// --- Review form submission ---
-document.getElementById('review-form').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const name = document.getElementById('reviewerName').value.trim();
-  const text = document.getElementById('reviewText').value.trim();
-  const stars = parseInt(document.getElementById('starRating').value);
-  if (name && text && stars >=1 && stars <=5) {
-    reviews.push({name, text, stars});
-    localStorage.setItem('reviews', JSON.stringify(reviews));
-    displayReviews();
-    document.getElementById('review-form').reset();
-  }
-});
-
-// --- Notification functions ---
-function showNotification(message) {
-  const notification = document.getElementById('notification');
-  notification.innerText = message;
-  notification.style.display = 'block';
-
-  setTimeout(() => {
-    notification.style.display = 'none';
-  }, 3000);
-}
-
-// --- Cart functions ---
-function addToCart(name, price, image, size) {
-  let currentCart = JSON.parse(localStorage.getItem('cart')) || [];
-  currentCart.push({ name, price, image, size });
-  localStorage.setItem('cart', JSON.stringify(currentCart));
-  showNotification(`${name} has been added to your cart!`);
-}
-
-function showCart() {
-  const container = document.getElementById('cartItems');
-  container.innerHTML = '';
-  let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-  if (cartItems.length === 0) {
-    container.innerHTML = "<p>Your cart is empty.</p>";
-    return;
-  }
-  cartItems.forEach((item, index) => {
-    const div = document.createElement('div');
-    div.className = 'cart-item';
-    div.innerHTML = `
-      <img src="${item.image}">
-      <div>
-        <strong>${item.name}</strong><br>
-        Size: ${item.size}<br>
-        Price: $${item.price}
-      </div>
-      <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
-    `;
-    container.appendChild(div);
-  });
-}
-
-function removeFromCart(index) {
-  let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-  cartItems.splice(index, 1);
-  localStorage.setItem('cart', JSON.stringify(cartItems));
-  showCart();
-}
-
-// --- Checkout modal functions ---
-function showCheckout() {
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  if (cart.length === 0) {
-    alert("Your cart is empty!");
-    return;
-  }
-  document.getElementById('checkoutFormContainer').style.display = 'flex';
-}
-function closeCheckoutForm() {
-  document.getElementById('checkoutFormContainer').style.display = 'none';
-}
-
-// --- Payment form handling ---
-document.getElementById('paymentForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-
-  const name = document.getElementById('name').value.trim();
-  const cc = document.getElementById('ccnumber').value.trim();
-  const exp = document.getElementById('exp').value.trim();
-  const cvv = document.getElementById('cvv').value.trim();
-  const address = document.getElementById('address').value.trim();
-
-  if (!name || !cc || !exp || !cvv || !address) {
-    alert("Please fill in all fields.");
-    return;
-  }
-
-  alert(`Thank you, ${name}! Your payment has been processed.`);
-  localStorage.removeItem('cart');
-  closeCheckoutForm();
-  alert("Your order has been placed successfully! Thank you for shopping with us.");
-  showSection('home');
-  if (document.getElementById('cart').style.display === 'block') {
-    showCart();
-  }
-});
-
-// --- Navigation ---
-document.querySelector("a[href='#cart']").onclick = () => {
-  showSection('cart');
-  showCart();
-};
-
-// --- Page initialization ---
+// Call displayReviews() to show reviews on page load
 window.onload = () => {
   renderProducts();
   displayReviews();
