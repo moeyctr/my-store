@@ -310,6 +310,16 @@ button:hover {
     margin-top: 10px;
   }
 }
+
+/* New style for cart total summary display */
+#cartTotalSummary {
+  margin-top: 15px;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 10px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 8px;
+}
 </style>
 </head>
 <body>
@@ -390,6 +400,8 @@ button:hover {
 <section id="cart">
   <h2>Your Cart</h2>
   <div id="cartItems"></div>
+  <!-- New total summary display -->
+  <div id="cartTotalSummary"></div>
   <button id="checkoutBtn" onclick="showCheckout()">Proceed to Checkout</button>
 </section>
 
@@ -485,6 +497,7 @@ const products = [
   { name: "A-Leagues Ultimax Pro 24-25 Finals Ball", image: "https://mitre-sports.com.au/cdn/shop/files/mitre_aleague_mens_finals_ball_mini_2_1800x1800.jpg?v=1744780338", category: "Balls", price: 140 }
 ];
 
+// Render products
 function renderProducts(productsToRender) {
   const container = document.getElementById('productGrid');
   container.innerHTML = '';
@@ -526,19 +539,16 @@ function filterProducts(category) {
   const filteredProducts = category === 'all'
     ? products
     : products.filter(p => p.category === category);
-
   if (category === 'all') {
     shopTitle.innerText = "Shop - All Products";
   } else {
     shopTitle.innerText = `Shop - ${category}`;
   }
-  
   renderProducts(filteredProducts);
 }
 
 // --- Reviews ---
 let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
-
 function displayReviews() {
   const container = document.getElementById('reviews-list');
   container.innerHTML = '';
@@ -559,8 +569,7 @@ function displayReviews() {
     container.appendChild(div);
   });
 }
-
-// --- Review form submission ---
+// --- Review submission ---
 document.getElementById('review-form').addEventListener('submit', (e) => {
   e.preventDefault();
   const name = document.getElementById('reviewerName').value.trim();
@@ -573,32 +582,30 @@ document.getElementById('review-form').addEventListener('submit', (e) => {
     document.getElementById('review-form').reset();
   }
 });
-
-// --- Notification functions ---
+// --- Notification ---
 function showNotification(message) {
   const notification = document.getElementById('notification');
   notification.innerText = message;
   notification.style.display = 'block';
-
   setTimeout(() => {
     notification.style.display = 'none';
   }, 3000);
 }
-
 // --- Cart functions ---
 function addToCart(name, price, image, size) {
   let currentCart = JSON.parse(localStorage.getItem('cart')) || [];
   currentCart.push({ name, price, image, size });
   localStorage.setItem('cart', JSON.stringify(currentCart));
-  showNotification(`${name} has been added to your cart!`);
+  showNotification(`${name} is added to your cart!`);
+  updateCartTotalDisplay(); // Update total whenever cart changes
 }
-
 function showCart() {
   const container = document.getElementById('cartItems');
   container.innerHTML = '';
   let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
   if (cartItems.length === 0) {
     container.innerHTML = "<p>Your cart is empty.</p>";
+    document.getElementById('cartTotalSummary').innerHTML = '';
     return;
   }
   cartItems.forEach((item, index) => {
@@ -615,8 +622,9 @@ function showCart() {
     `;
     container.appendChild(div);
   });
+  // Update total display whenever cart is viewed
+  updateCartTotalDisplay();
 }
-
 function removeFromCart(index) {
   let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
   cartItems.splice(index, 1);
@@ -624,7 +632,7 @@ function removeFromCart(index) {
   showCart();
 }
 
-// --- Calculate cart total ---
+// --- Calculate subtotal ---
 function getCartSubtotal() {
   const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
   let subtotal = 0;
@@ -634,46 +642,55 @@ function getCartSubtotal() {
   return subtotal;
 }
 
-// --- Show checkout with price, GST, and total ---
+// --- Show total with GST before checkout ---
+function updateCartTotalDisplay() {
+  const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+  let subtotal = 0;
+  cartItems.forEach(item => {
+    subtotal += item.price;
+  });
+  const gstRate = 0.10;
+  const gstAmount = subtotal * gstRate;
+  const total = subtotal + gstAmount;
+  document.getElementById('cartTotalSummary').innerHTML = `
+    Subtotal: $${subtotal.toFixed(2)}<br>
+    GST (10%): $${gstAmount.toFixed(2)}<br>
+    <strong>Total: $${total.toFixed(2)}</strong>
+  `;
+}
+
+// --- Show checkout modal, also update total ---
 function showCheckout() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
   if (cart.length === 0) {
     alert("Your cart is empty!");
     return;
   }
+  // Update total info immediately
+  updateCartTotalDisplay();
 
   const subtotal = getCartSubtotal();
-  const gstRate = 0.10; // 10%
-  const gstAmount = subtotal * gstRate;
+  const gstAmount = subtotal * 0.10;
   const totalPrice = subtotal + gstAmount;
 
-  // Show the detailed breakdown
+  // Show breakdown in modal
   const priceDetails = `
 Price: $${subtotal.toFixed(2)}
 GST (10%): $${gstAmount.toFixed(2)}
 Total: $${totalPrice.toFixed(2)}
 `;
-
   document.getElementById('priceBreakdown').innerText = priceDetails;
-
-  // Store total in dataset for later use
-  const paymentForm = document.getElementById('paymentForm');
-  paymentForm.dataset.total = totalPrice.toFixed(2);
-
-  // Show the checkout modal
+  document.getElementById('paymentForm').dataset.total = totalPrice.toFixed(2);
   document.getElementById('checkoutFormContainer').style.display='flex';
 }
-
-// --- Close checkout modal ---
+// --- Close modal ---
 function closeCheckoutForm() {
   document.getElementById('checkoutFormContainer').style.display='none';
 }
-
-// --- Payment form handling ---
+// --- Payment submission ---
 document.getElementById('paymentForm').addEventListener('submit', function(e) {
   e.preventDefault();
-
-  const totalAmount = this.dataset.total; // Retrieve total
+  const totalAmount = this.dataset.total;
   const name = document.getElementById('name').value.trim();
   const cc = document.getElementById('ccnumber').value.trim();
   const exp = document.getElementById('exp').value.trim();
@@ -685,25 +702,15 @@ document.getElementById('paymentForm').addEventListener('submit', function(e) {
     return;
   }
 
-  alert(`Thank you, ${name}! Your total amount is $${totalAmount}. Your payment has been processed.`);
+  alert(`Thank you, ${name}! Your total is $${totalAmount}.`);
   localStorage.removeItem('cart');
   closeCheckoutForm();
-  alert("Your order has been placed successfully! Thank you for shopping with us.");
+  alert("Order placed successfully!");
   showSection('home');
-
-  // Refresh cart view if visible
-  if (document.getElementById('cart').style.display === 'block') {
-    showCart();
-  }
+  updateCartTotalDisplay(); // Reset total display
 });
 
-// --- Navigation ---
-document.querySelector("a[href='#cart']").onclick = () => {
-  showSection('cart');
-  showCart();
-};
-
-// --- Page initialization ---
+// --- Page init ---
 window.onload = () => {
   filterProducts('all');
   displayReviews();
@@ -711,5 +718,6 @@ window.onload = () => {
 };
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
+
 </body>
 </html>
