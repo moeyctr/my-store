@@ -403,9 +403,11 @@ button:hover {
   </form>
 </section>
 
+<!-- Checkout Modal -->
 <div id="checkoutFormContainer" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000;">
   <div style="background:#222; padding:20px; border-radius:10px; max-width:400px; width:90%; color:#fff;">
     <h2>Enter Payment Details</h2>
+    <p id="priceBreakdown"></p> <!-- To show price, GST, total -->
     <form id="paymentForm">
       <label>Full Name:</label><br>
       <input type="text" id="name" required><br><br>
@@ -423,6 +425,7 @@ button:hover {
   </div>
 </div>
 
+<!-- Footer -->
 <footer style="background: #203a43; color: #ffd700; padding: 25px 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; font-family: 'Orbitron', sans-serif;">
   <div style="max-width: 400px; line-height: 1.5; font-size: 1em;">
     <h3 style="margin-bottom: 10px;">Contact Us</h3>
@@ -621,23 +624,56 @@ function removeFromCart(index) {
   showCart();
 }
 
-// --- Checkout modal functions ---
+// --- Calculate cart total ---
+function getCartSubtotal() {
+  const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+  let subtotal = 0;
+  cartItems.forEach(item => {
+    subtotal += item.price;
+  });
+  return subtotal;
+}
+
+// --- Show checkout with price, GST, and total ---
 function showCheckout() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
   if (cart.length === 0) {
     alert("Your cart is empty!");
     return;
   }
-  document.getElementById('checkoutFormContainer').style.display = 'flex';
+
+  const subtotal = getCartSubtotal();
+  const gstRate = 0.10; // 10%
+  const gstAmount = subtotal * gstRate;
+  const totalPrice = subtotal + gstAmount;
+
+  // Show the detailed breakdown
+  const priceDetails = `
+Price: $${subtotal.toFixed(2)}
+GST (10%): $${gstAmount.toFixed(2)}
+Total: $${totalPrice.toFixed(2)}
+`;
+
+  document.getElementById('priceBreakdown').innerText = priceDetails;
+
+  // Store total in dataset for later use
+  const paymentForm = document.getElementById('paymentForm');
+  paymentForm.dataset.total = totalPrice.toFixed(2);
+
+  // Show the checkout modal
+  document.getElementById('checkoutFormContainer').style.display='flex';
 }
+
+// --- Close checkout modal ---
 function closeCheckoutForm() {
-  document.getElementById('checkoutFormContainer').style.display = 'none';
+  document.getElementById('checkoutFormContainer').style.display='none';
 }
 
 // --- Payment form handling ---
 document.getElementById('paymentForm').addEventListener('submit', function(e) {
   e.preventDefault();
 
+  const totalAmount = this.dataset.total; // Retrieve total
   const name = document.getElementById('name').value.trim();
   const cc = document.getElementById('ccnumber').value.trim();
   const exp = document.getElementById('exp').value.trim();
@@ -649,11 +685,13 @@ document.getElementById('paymentForm').addEventListener('submit', function(e) {
     return;
   }
 
-  alert(`Thank you, ${name}! Your payment has been processed.`);
+  alert(`Thank you, ${name}! Your total amount is $${totalAmount}. Your payment has been processed.`);
   localStorage.removeItem('cart');
   closeCheckoutForm();
   alert("Your order has been placed successfully! Thank you for shopping with us.");
   showSection('home');
+
+  // Refresh cart view if visible
   if (document.getElementById('cart').style.display === 'block') {
     showCart();
   }
