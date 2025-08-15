@@ -664,6 +664,33 @@ window.onload = () => {
   showSection('home');
 };
 </script>
+  // Your existing code...
+
+// Add this line just before the window.onload:
+let reviews = [
+  { name: "Lionel Messi", text: "The quality of the balls and kits from this store is exceptional. Playing with their boots feels like I’m on the pitch every day. Highly recommend for every football lover.", stars: 5 },
+  { name: "Cristiano Ronaldo", text: "Top-notch boots and gear! The kits fit perfectly and boost confidence during every game. This is my go-to store for all my football needs.", stars: 5 },
+  { name: "Pelé", text: "A store that truly understands the game. Their balls and kits are of excellent quality, perfect for players of all levels. Keeps the spirit of football alive.", stars: 5 },
+  { name: "Zinedine Zidane", text: "Elegant and reliable, just like a great game. Their boots and kits are comfortable and stylish – ideal for players who want to perform at their best.", stars: 4 },
+  { name: "Neymar Jr.", text: "The best place to find flashy boots and vibrant kits! I love their selection, and the quality is always on point. Perfect for showing off your style on the pitch.", stars: 5 },
+  { name: "Mohamed Salah", text: "The boots and kits I find here give me the edge on the pitch. Durable and comfortable—perfect for my style of play.", stars: 5 },
+  { name: "Kevin De Bruyne", text: "Precision and quality are key, and this store delivers both. Their balls and kits are top-tier, helping me stay sharp.", stars: 5 },
+  { name: "Virgil van Dijk", text: "Strong, reliable, and well-made—just like their equipment. I trust their gear for every game.", stars: 4 },
+  { name: "Sadio Mané", text: "Fast, agile, and stylish—this store’s products match my game. Love their boots and kits for performance and flair.", stars: 5 },
+  { name: "Kylian Mbappé", text: "Lightweight and sleek, their boots make me feel faster, and their kits are perfect for high-energy matches.", stars: 5 },
+  { name: "Robert Lewandowski", text: "Effective, high-quality gear that helps me focus on scoring. Their balls and kits are second to none.", stars: 5 },
+  { name: "Alisson Becker", text: "As a goalkeeper, I need reliable equipment, and this store always provides the best gloves, boots, and gear.", stars: 5 },
+  { name: "Harry Kane", text: "Their kits fit perfectly and give me confidence during every shot. Always my first choice for football gear.", stars: 4 },
+  { name: "Paul Pogba", text: "Creative, bold, and stylish—just like their collection. Their boots make a statement on the pitch.", stars: 4 },
+  { name: "Sergio Ramos", text: "Strong and durable, their boots and kits stand up to the toughest matches. Perfect for defenders.", stars: 4 }
+];
+
+// --- Your existing window.onload ---
+window.onload = () => {
+  renderProducts();
+  displayReviews();
+  showSection('home');
+};
 <!-- Google Maps API -->
 <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
 </body>
