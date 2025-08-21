@@ -739,6 +739,15 @@ function searchItems() {
   // Render filtered products
   renderProducts(filtered);
 }
+  function removeFromCart(index) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  if (index >= 0 && index < cart.length) {
+    cart.splice(index, 1); // Remove the item at the given index
+    localStorage.setItem('cart', JSON.stringify(cart));
+    showNotification("Item removed from your cart!");
+    showCart(); // Refresh the cart display
+  }
+}
 </script>
 </body>
 </html>
