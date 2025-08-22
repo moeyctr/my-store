@@ -748,6 +748,33 @@ function searchItems() {
     showCart(); // Refresh the cart display
   }
 }
+  // Initialize Google Map
+function initMap() {
+  var location = { lat: -37.642544, lng: 144.940123 }; // Broadmeadows coordinates
+  var map = new google.maps.Map(document.getElementById('googleMap'), {
+    zoom: 16,
+    center: location
+  });
+  new google.maps.Marker({
+    position: location,
+    map: map,
+    title: 'Sirius College Meadow Fair Campus'
+  });
+}
 </script>
+  <!-- Contact Details and Map Section -->
+<section id="contacts" style="padding:40px 20px; background:#111; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-start;">
+  <!-- Contact Info -->
+  <div style="flex:1; min-width:250px; margin-right:20px;">
+    <h2 style="color:#f0c040;">Contact Details</h2>
+    <p><strong>Phone:</strong> +61 3 9309 3000</p>
+    <p><strong>Email:</strong> info@siriuscollege.edu.au</p>
+    <p><strong>Address:</strong> Sirius College Meadow Fair Campus, Meadow Fair Rd, Broadmeadows VIC 3047</p>
+  </div>
+  <!-- Map -->
+  <div style="flex:2; min-width:300px; height:400px;">
+    <div id="googleMap" style="width:100%; height:100%; border-radius:10px; box-shadow:0 0 15px rgba(0,0,0,0.5);"></div>
+  </div>
+</section>
 </body>
 </html>
