@@ -339,7 +339,6 @@ button:hover {
   background: rgba(255,255,255,0.1);
   border-radius: 8px;
 }
-
 /* NEW FOOTER & MAP STYLES */
 #footer-contact {
   display: flex;
@@ -428,7 +427,7 @@ button:hover {
 <section id="reviews">
   <h2 style="text-align:center; margin-top:20px;">Customer Reviews</h2>
   <div id="reviews-list" style="margin-top:20px; max-width:800px; margin-left:auto; margin-right:auto; padding:0 10px;">
-    </div>
+  </div>
   <h3 style="margin-top:40px; text-align:center;">Leave a Review</h3>
   <form id="review-form" style="max-width:600px; margin:20px auto; display:flex; flex-direction:column;">
     <input type="text" id="reviewerName" placeholder="Your Name" required style="margin-bottom:10px; padding:8px; border-radius:5px; border:none; font-family:'Orbitron';"/>
@@ -498,26 +497,10 @@ button:hover {
     <p><strong>Phone:</strong> +61 3 9309 6428</p>
     <p><strong>Email:</strong> meadowfair@sirius.vic.edu.au</p>
   </div>
-  <div id="googleMap"></div>
+  <iframe id="googleMap" src="https://www.openstreetmap.org/export/embed.html?bbox=144.9123,-37.6841,144.9211,-37.6791&marker=-37.6816,144.9167&zoom=15" frameborder="0" style="border:0"></iframe>
 </footer>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
-
 <script>
-// Initialize Google Map
-function initMap() {
-  const broadmeadowsLocation = { lat: -37.6833, lng: 144.9167 }; // Coordinates for Broadmeadows, VIC, Australia
-  const map = new google.maps.Map(document.getElementById('googleMap'), {
-    zoom: 12,
-    center: broadmeadowsLocation
-  });
-  new google.maps.Marker({
-    position: broadmeadowsLocation,
-    map: map,
-    title: 'Broadmeadows, Victoria'
-  });
-}
-
 function showSection(id) {
   document.querySelectorAll('section').forEach(s => s.style.display='none');
   document.getElementById(id).style.display='block';
